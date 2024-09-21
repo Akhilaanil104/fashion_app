@@ -1,11 +1,16 @@
 // ignore_for_file: unused_element
 
 import 'package:fashion_app1/src/auth/views/login_screen.dart';
+import 'package:fashion_app1/src/auth/views/registration_screen.dart';
 import 'package:fashion_app1/src/categories/views/categories_screen.dart';
 import 'package:fashion_app1/src/categories/views/category_page.dart';
 import 'package:fashion_app1/src/entrypoint/views/entrypoint.dart';
 import 'package:fashion_app1/src/notification/views/notification_screen.dart';
 import 'package:fashion_app1/src/onboarding/views/onboarding_screen.dart';
+import 'package:fashion_app1/src/products/views/product_screen.dart';
+import 'package:fashion_app1/src/profile/views/orders_screen.dart';
+import 'package:fashion_app1/src/profile/views/policy_screen.dart';
+import 'package:fashion_app1/src/profile/views/shipping_address_screen.dart';
 import 'package:fashion_app1/src/search/view/search_screen.dart';
 import 'package:fashion_app1/src/splshscreen/viwes/splshscreen.dart';
 import 'package:flutter/material.dart';
@@ -147,6 +152,37 @@ final GoRouter _router = GoRouter(
       builder: (context, state) => const CategoryPage(),
 
     ),
+
+
+     GoRoute(
+      path: '/product/:id',
+      builder: (BuildContext context, GoRouterState state) {
+        final productId = state.pathParameters['id'];
+        return ProductScreen(productId: productId.toString());
+      },
+    ),
+
+    GoRoute(
+      path: '/orderscreen',
+      builder: (context, state) => const OrdersScreen(),
+
+    ),
+    GoRoute(
+      path: '/shippingaddressscreen',
+      builder: (context, state) => const ShippingAddressScreen (),
+
+    ),
+    GoRoute(
+      path: '/policyscreen',
+      builder: (context, state) => const PolicyScreen(),
+
+    ),
+    GoRoute(
+      path: '/registerscreen',
+      builder: (context, state) => const RegistrationPage(),
+
+    ),
+
 
 
 

@@ -1,3 +1,4 @@
+
 import 'package:fashion_app1/common/utils/kcolors.dart';
 import 'package:fashion_app1/common/widgets/app_style.dart';
 import 'package:fashion_app1/common/widgets/back_button.dart';
@@ -7,29 +8,28 @@ import 'package:fashion_app1/common/widgets/password_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginScreenState();
+  State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
-class _LoginScreenState extends State<LoginPage> {
+class _RegistrationPageState extends State<RegistrationPage> {
   late final TextEditingController _usernameController =
+      TextEditingController();
+      late final TextEditingController _emailController =
       TextEditingController();
   late final TextEditingController _passwordController =
       TextEditingController();
   final FocusNode _passwordNode = FocusNode();
-
   @override
   void dispose() {
-    super.dispose();
     _usernameController.dispose();
     _passwordController.dispose();
-
     _passwordNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -37,42 +37,39 @@ class _LoginScreenState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
-        leading:  AppBackButton(
-          onTap:(){
-            context.go('/home');
-          } ,
-        ),
-        backgroundColor: Colors.white,
-      ),
+          backgroundColor: Colors.white,
+          leading: const AppBackButton(),
+          elevation: 0),
       body: ListView(
         children: [
           SizedBox(
             height: 160.h,
           ),
           Text(
+            textAlign: TextAlign.center,
             "FashionForMe",
             style: appStyle(24, Kolors.kPrimary, FontWeight.bold),
-            textAlign: TextAlign.center,
           ),
           SizedBox(
             height: 10.h,
           ),
           Text(
             textAlign: TextAlign.center,
-            "Hi ! Welcome back.You 've been missed",
+            "Hi! Welcome back. You've been missed",
             style: appStyle(13, Kolors.kGray, FontWeight.normal),
           ),
           SizedBox(
             height: 25.h,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.w,
+            ),
             child: Column(
               children: [
                 EmailTextField(
                     radius: 25,
-                    focusNode: _passwordNode,
+                   
                     hintText: "Username",
                     controller: _usernameController,
                     prefixIcon: Icon(
@@ -82,7 +79,24 @@ class _LoginScreenState extends State<LoginPage> {
                     ),
                     keyboardType: TextInputType.name,
                     onEditingComplete: () {
-                      FocusScope.of(context).requestFocus((_passwordNode));
+                      FocusScope.of(context).requestFocus(_passwordNode);
+                    }),
+                SizedBox(
+                  height: 25.h,
+                ),
+                EmailTextField(
+                    radius: 25,
+                    focusNode: _passwordNode,
+                    hintText: "Email",
+                    controller: _emailController,
+                    prefixIcon: Icon(
+                      CupertinoIcons.mail,
+                      size: 20,
+                      color: Kolors.kGray,
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    onEditingComplete: () {
+                      FocusScope.of(context).requestFocus(_passwordNode);
                     }),
                 SizedBox(
                   height: 25.h,
@@ -93,33 +107,21 @@ class _LoginScreenState extends State<LoginPage> {
                   radius: 25,
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 25.h,
                 ),
                 CustomButton(
-                  onTap: (){},
-                  text: "LOGIN",
+                  text: "S I G N U P",
                   btnWidth: ScreenUtil().screenWidth,
                   btnHieght: 40,
                   radius: 20,
-                )
+                  onTap: () {},
+                ),
               ],
             ),
           )
         ],
       ),
-      bottomNavigationBar: SizedBox(
-        height: 130.h,
-        child: Center(child:Padding(padding: const EdgeInsets.only(bottom: 110.0),
-        child: GestureDetector(
-          onTap: (){
-          context.push('/registerscreen');
-          },
-          child: Text("Do not have an account? Register a new one",style: appStyle(12, Colors.blue, FontWeight.normal),),
-        ),),
-        
-        
-        ),
-      ),
+      
     );
   }
 }
